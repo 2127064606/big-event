@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.bigevent.mapper.ArticleMapper">
+
+    <insert id = "insertArticle">
+        insert into article(title, content, cover_img, category_id, create_user, create_time, update_time)
+        values (#{title}, #{content}, #{coverImg}, #{categoryId}, #{createUser}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id = "selectByStateAndCategoryId" resultType="org.example.bigevent.pojo.Article">
+        select*from article
+        <where>
+            create_user = #{userId}
+            <if test = "categoryId != null">
+               and category_id = #{categoryId}
+            </if>
+            <if test = "state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <select id = "selectById" resultType="org.example.bigevent.pojo.Article">
+        select*from article where id = #{id}
+    </select>
+
+    <update id = "update">
+        update article
+        <set>
+            <if test = "title != null">
+                title = #{title},
+            </if>
+            <if test = "content != null">
+                content = #{content},
+            </if>
+            <if test = "coverImg != null">
+                cover_img = #{coverImg},
+            </if>
+            <if test = "state != null">
+                state = #{state},
+            </if>
+            <if test = "categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

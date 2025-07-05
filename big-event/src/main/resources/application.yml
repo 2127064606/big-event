@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/big_event
+    username: root
+    password: wang520520
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      max-active: 10
+      initial-size: 5
+      max-wait: 60000
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+oss-basedata-config:
+  endpoint: oss-cn-wuhan-lr.aliyuncs.com
+  region: cn-wuhan-lr
+  bucket-name: pjpp
