@@ -16,6 +16,8 @@ mybatis:
 
 
 oss-basedata-config:
-  endpoint: oss-cn-wuhan-lr.aliyuncs.com
+  endpoint: https://oss-cn-wuhan-lr.aliyuncs.com
   region: cn-wuhan-lr
   bucket-name: pjpp
+
+

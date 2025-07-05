@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 @SpringBootTest
@@ -56,6 +57,10 @@ class BigEventApplicationTests {
         System.out.println(AliOssConfig.getEndpoint());
     }
 
-    void testUUID(){}
+    @Test
+    void testUUID(){
+        System.out.println(AliOssConfig.getEndpoint());
+        System.out.println(AliOssConfig.getEndpoint().lastIndexOf("/"));
+    }
 
 }
