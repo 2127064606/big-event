@@ -9,6 +9,7 @@ import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.Bucket;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import lombok.extern.slf4j.Slf4j;
 import org.example.bigevent.config.AliOssConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static org.example.bigevent.config.AliOssConfig.*;
 
+@Slf4j
 public class OSSClientUtil {
 
     public static String uploadToOss(String objectName, InputStream in) throws Exception{
@@ -44,7 +46,8 @@ public class OSSClientUtil {
         try {
             // 创建PutObjectRequest对象。
             PutObjectRequest putObjectRequest = new PutObjectRequest(AliOssConfig.getBucketName(), objectName, in);
-            url = "https://"+AliOssConfig.getBucketName()+"."+AliOssConfig.getEndpoint().substring(AliOssConfig.getEndpoint().lastIndexOf("/"))+"/"+objectName;
+            url = "https://"+AliOssConfig.getBucketName()+"."+AliOssConfig.getEndpoint().substring(AliOssConfig.getEndpoint().lastIndexOf("/"
+            )+1)+"/"+objectName;
             PutObjectResult result = ossClient.putObject(putObjectRequest);
         } catch (OSSException oe) {
             System.out.println("Caught an OSSException, which means your request made it to OSS, "
