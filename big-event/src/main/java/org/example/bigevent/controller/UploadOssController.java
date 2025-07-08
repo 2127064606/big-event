@@ -20,7 +20,7 @@ public class UploadOssController {
     private UserService userService;
     @PostMapping
     public Result upload(@RequestBody MultipartFile file){
-        log.info("file:{}",file == null);
+        log.info("file:{}",file);
         String userPic = userService.addUserPic(file);
         return Result.success(userPic);
     }

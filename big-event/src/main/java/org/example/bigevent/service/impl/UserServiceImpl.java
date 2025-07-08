@@ -2,6 +2,7 @@ package org.example.bigevent.service.impl;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.example.bigevent.exception.DuplicateDataException;
 import org.example.bigevent.exception.ErrorFormatInfoException;
 import org.example.bigevent.mapper.UserMapper;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -106,6 +108,7 @@ public class UserServiceImpl implements UserService {
         int uid = Integer.parseInt(ThreadLocalUtil.get().get("id").toString());
         User user = userMapper.selectById(uid);
         boolean check = user == null || !user.getPassword().equals(oldPsw);
+        log.info("check:{}",check);
         if(check)throw new RuntimeException("原密码错误");
         if(!newPsw.equals(rePsw))throw new RuntimeException("两次密码不一致");
         user.setPassword(newPsw);

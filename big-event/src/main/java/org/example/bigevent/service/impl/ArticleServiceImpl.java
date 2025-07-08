@@ -23,6 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public PageResult pageList(ArticleQuery query) {
+        if("".equals(query.getState()))query.setState(null);
         int uid = Integer.parseInt(ThreadLocalUtil.get().get("id").toString());
         query.setUserId(uid);
          PageHelper.startPage(query.getPageNum(), query.getPageSize());
@@ -51,6 +52,11 @@ public class ArticleServiceImpl implements ArticleService {
         //TODO: 是否需要本人操作
         article.setUpdateTime(LocalDateTime.now());
         articleMapper.update(article);
+    }
+
+    @Override
+    public void deleteArticleById(Integer id) {
+        articleMapper.deleteById(id);
     }
 
 

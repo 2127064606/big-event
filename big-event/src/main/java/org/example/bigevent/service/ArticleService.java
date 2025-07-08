@@ -12,4 +12,6 @@ public interface ArticleService {
     public Article getArticleById(Integer id);
 
     public void updateArticle(Article article);
+
+    public void deleteArticleById(Integer id);
 }

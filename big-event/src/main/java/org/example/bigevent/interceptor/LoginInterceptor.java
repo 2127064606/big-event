@@ -5,6 +5,7 @@ import com.auth0.jwt.interfaces.Claim;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.bigevent.exception.LoginErrorException;
 import org.example.bigevent.utils.JwtGenerateUtil;
 import org.example.bigevent.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.security.auth.login.LoginException;
 import java.util.Map;
 
 @Component
@@ -26,12 +28,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("拦截前...");
         String token = request.getHeader("token");
         if(token == null){
-            throw new RuntimeException("请先登录");
+            response.setStatus(401);
+            throw new LoginErrorException("请先登录");
         }
         ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
         String token1 = operations.get("token");
         if(!token.equals(token1)){
-            throw new RuntimeException("登录超时！请重新登录");
+            response.setStatus(401);
+            throw new LoginErrorException("登录超时！请重新登录");
         }
         try {
             //解析jwt
@@ -39,8 +43,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             Map<String, Object>maps = claimMap.get("user").asMap();
             //放入ThreadLocal
             ThreadLocalUtil.set(maps);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            response.setStatus(401);
+            throw new LoginErrorException(e.getMessage());
         }
 
         return true;

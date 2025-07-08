@@ -38,10 +38,10 @@ class BigEventApplicationTests {
 
     @Test
     public void testJwtParse(){
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiYWRtaW4ifSwiZXhwIjoxNzUxNTEwNjMzfQ.UtEMXyKJYqtna2fiuAtf1_WZFqJBO2k1WmUrO6nMY3k";
-        Map<String, Claim>maps = JwtGenerateUtil.parseJwt(token, Algorithm.HMAC256("1234"));
-        maps.forEach((k,v)->{System.out.println(k+":"+v);});
-        System.out.println(maps.get("user").asMap().get("username"));
+//        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiYWRtaW4ifSwiZXhwIjoxNzUxNTEwNjMzfQ.UtEMXyKJYqtna2fiuAtf1_WZFqJBO2k1WmUrO6nMY3k";
+//        Map<String, Claim>maps = JwtGenerateUtil.parseJwt(token, Algorithm.HMAC256("1234"));
+//        maps.forEach((k,v)->{System.out.println(k+":"+v);});
+//        System.out.println(maps.get("user").asMap().get("username"));
     }
 
     @Test

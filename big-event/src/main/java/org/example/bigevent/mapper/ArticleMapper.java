@@ -16,4 +16,6 @@ public interface ArticleMapper {
     public Article selectById(Integer id);
 
     public void update(Article article);
+
+    public void deleteById(Integer id);
 }

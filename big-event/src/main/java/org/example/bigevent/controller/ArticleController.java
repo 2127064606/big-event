@@ -2,6 +2,7 @@ package org.example.bigevent.controller;
 
 
 import com.auth0.jwt.algorithms.Algorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.ResultMapResolver;
 import org.example.bigevent.pojo.Article;
 import org.example.bigevent.pojo.ArticleQuery;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -28,13 +30,14 @@ public class ArticleController {
 
 
     @PostMapping
-    public Result add(@RequestBody @Validated Article article){
+    public Result add(@RequestBody @Validated(value = Article.Add.class) Article article){
         articleService.addArticle(article);
         return Result.success();
     }
 
     @GetMapping
-    public Result list(@Validated(value = Article.Add.class) ArticleQuery query){
+    public Result list(@Validated ArticleQuery query){
+        log.info("query:{}",query);
          PageResult p = articleService.pageList(query);
          return Result.success(p);
     }
@@ -48,6 +51,12 @@ public class ArticleController {
     @PutMapping
     public Result update(@RequestBody @Validated Article article){
         articleService.updateArticle(article);
+        return Result.success();
+    }
+
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable(value = "id")Integer id){
+        articleService.deleteArticleById(id);
         return Result.success();
     }
 }
